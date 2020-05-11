@@ -1,9 +1,9 @@
 #First block id refered to "AS" Builder Phase
-FROM node:alpine as builder 
+FROM node:alpine
 
 WORKDIR '/app'
 
-COPY package.json .
+COPY package*.json ./
 
 RUN npm install
 
@@ -19,7 +19,7 @@ FROM nginx
 EXPOSE 80
 
 #copy from builder phase
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 
 #nginx starts automatically
 
